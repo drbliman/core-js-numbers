@@ -245,8 +245,8 @@ function toNumber(value, def) {
  *   -2 => -8
  *   0  => 0
  */
-function getCube(/* num */) {
-  throw new Error('Not implemented');
+function getCube(num) {
+  return num ** 3;
 }
 
 /**
@@ -262,8 +262,27 @@ function getCube(/* num */) {
  *   3  => 2
  *   10 => 55
  */
-function getFibonacciNumber(/* index */) {
-  throw new Error('Not implemented');
+function getFibonacciNumber(index) {
+  let a = 1;
+  let b = 1;
+  let c = 0;
+  let fib = 0;
+  if (index > 2) {
+    for (let i = 2; i < index; i += 1) {
+      c = 0;
+      c += a + b;
+      a = b;
+      b = c;
+    }
+    fib = c;
+  }
+  if (index === 0) {
+    fib = 0;
+  }
+  if (index === 1 || index === 2) {
+    fib = 1;
+  }
+  return fib;
 }
 
 /**
