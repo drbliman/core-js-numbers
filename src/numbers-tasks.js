@@ -359,8 +359,8 @@ function isPowerOfTwo(num) {
  *   0 => 0
  *   Math.PI / 2 => 1
  */
-function getSine(/* num */) {
-  throw new Error('Not implemented');
+function getSine(num) {
+  return Math.sin(num);
 }
 
 /**
@@ -374,8 +374,32 @@ function getSine(/* num */) {
  * 255, 16 => 'ff'
  * 2, 2    => '10'
  */
-function numberToStringInBase(/* number, base */) {
-  throw new Error('Not implemented');
+function numberToStringInBase(number, base) {
+  let a = Math.abs(number);
+  const hex = [];
+  for (let i = 0; a >= 1; i += 1) {
+    if (a % base === 10) {
+      hex.unshift('a');
+    } else if (a % base === 11) {
+      hex.unshift('b');
+    } else if (a % base === 12) {
+      hex.unshift('c');
+    } else if (a % base === 13) {
+      hex.unshift('d');
+    } else if (a % base === 14) {
+      hex.unshift('e');
+    } else if (a % base === 15) {
+      hex.unshift('f');
+    } else {
+      hex.unshift(a % base);
+    }
+    a = Math.floor(a / base);
+  }
+  let result = hex.join('');
+  if (number < 0) {
+    result = `-${result}`;
+  }
+  return result;
 }
 
 /**
@@ -388,8 +412,22 @@ function numberToStringInBase(/* number, base */) {
  * @example:
  * 12345, 2    => '1.23e+4'
  */
-function toExponential(/* number, fractionDigits */) {
-  throw new Error('Not implemented');
+function toExponential(number, fractionDigits) {
+  let a = number;
+  let b = 0;
+  if (a > 0) {
+    for (let i = 1; a > 10; i += 1) {
+      a /= 10;
+      b += 1;
+    }
+  } else {
+    for (let i = 1; a < -10; i += 1) {
+      a /= 10;
+      b += 1;
+    }
+  }
+  a = a.toFixed(fractionDigits);
+  return `${a}e+${b}`;
 }
 
 /**
