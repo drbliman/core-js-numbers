@@ -125,8 +125,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  const a = String(value);
-  return Number(a[a.length - 1]);
+  return value % 10;
 }
 
 /**
@@ -375,31 +374,7 @@ function getSine(num) {
  * 2, 2    => '10'
  */
 function numberToStringInBase(number, base) {
-  let a = Math.abs(number);
-  const hex = [];
-  for (let i = 0; a >= 1; i += 1) {
-    if (a % base === 10) {
-      hex.unshift('a');
-    } else if (a % base === 11) {
-      hex.unshift('b');
-    } else if (a % base === 12) {
-      hex.unshift('c');
-    } else if (a % base === 13) {
-      hex.unshift('d');
-    } else if (a % base === 14) {
-      hex.unshift('e');
-    } else if (a % base === 15) {
-      hex.unshift('f');
-    } else {
-      hex.unshift(a % base);
-    }
-    a = Math.floor(a / base);
-  }
-  let result = hex.join('');
-  if (number < 0) {
-    result = `-${result}`;
-  }
-  return result;
+  return number.toString(base);
 }
 
 /**
@@ -413,21 +388,7 @@ function numberToStringInBase(number, base) {
  * 12345, 2    => '1.23e+4'
  */
 function toExponential(number, fractionDigits) {
-  let a = number;
-  let b = 0;
-  if (a > 0) {
-    for (let i = 1; a > 10; i += 1) {
-      a /= 10;
-      b += 1;
-    }
-  } else {
-    for (let i = 1; a < -10; i += 1) {
-      a /= 10;
-      b += 1;
-    }
-  }
-  a = a.toFixed(fractionDigits);
-  return `${a}e+${b}`;
+  return Number.parseFloat(number).toExponential(fractionDigits);
 }
 
 /**
@@ -458,19 +419,7 @@ function toFixed(number, fractionDigits) {
  * 12.345, 4   => '12.35'
  */
 function toPrecision(number, precision) {
-  let a = 0;
-  let b = number;
-  let c = 0;
-  if (Number.isInteger(number) === true) {
-    a = number.toFixed(precision - String(number).length);
-  } else {
-    for (let i = 0; b > 1; i += 1) {
-      b /= 10;
-      c += 1;
-    }
-    a = number.toFixed(precision - c);
-  }
-  return a;
+  return number.toPrecision(precision);
 }
 
 /**
@@ -483,8 +432,8 @@ function toPrecision(number, precision) {
  * new Number(5) => 5
  * Number(-5)    => -5
  */
-function getNumberValue(/* number */) {
-  throw new Error('Not implemented');
+function getNumberValue(number) {
+  return number.valueOf();
 }
 
 /**
@@ -502,8 +451,8 @@ function getNumberValue(/* number */) {
  * 5        => true
  * '5'      => false
  */
-function isNumber(/* number */) {
-  throw new Error('Not implemented');
+function isNumber(number) {
+  return Number.isFinite(number);
 }
 
 /**
@@ -517,8 +466,8 @@ function isNumber(/* number */) {
  * 5.1  => false
  * '5'  => false
  */
-function isInteger(/* number */) {
-  throw new Error('Not implemented');
+function isInteger(number) {
+  return Number.isInteger(number);
 }
 
 /**
